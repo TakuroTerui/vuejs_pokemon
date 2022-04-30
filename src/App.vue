@@ -38,6 +38,20 @@ export default {
       token: "Token 1b04149e54bf6003dfe75d96fcd3be385cbae135"
     }
   },
+  created() {
+    axios.get(
+      "http://127.0.0.1:8000/api/register/",
+      {
+        headers: {"Authorization": this.token}
+      }
+    )
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  },
   methods: {
     beforeEnter() {
       this.$root.$emit('triggerScroll');
@@ -50,9 +64,9 @@ export default {
           "title": this.name,
           "body": this.comment,
         },
-        {headers: {
-          "Authorization": this.token
-        }}
+        {
+          headers: {"Authorization": this.token}
+        }
       )
       .then(response => {
         console.log(response);
