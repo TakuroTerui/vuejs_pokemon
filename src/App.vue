@@ -34,7 +34,8 @@ export default {
   data() {
     return {
       name: "",
-      comment: ""
+      comment: "",
+      token: "Token 1b04149e54bf6003dfe75d96fcd3be385cbae135"
     }
   },
   methods: {
@@ -45,16 +46,13 @@ export default {
       axios.post(
         "http://127.0.0.1:8000/api/register/",
         {
-          "status": {
-            stringValue: "public"
-          },
-          "title": {
-            stringValue: this.name
-          },
-          "body": {
-            stringValue: this.comment
-          },
-        }
+          "status": "public",
+          "title": this.name,
+          "body": this.comment,
+        },
+        {headers: {
+          "Authorization": this.token
+        }}
       )
       .then(response => {
         console.log(response);
