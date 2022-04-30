@@ -14,7 +14,11 @@
     <br>
     <button @click="createComment">コメントをサーバーに送る</button>
     <h2>掲示板</h2>
-
+    <div v-for="post in posts" :key="post.id">
+      <div>名前:{{ post.author.username }}</div>
+      <div>タイトル:{{ post.title }}</div>
+      <div>本文:{{ post.body }}</div>
+    </div>
     <router-view name="header"></router-view>
     <transition
       name="fade"
@@ -35,18 +39,19 @@ export default {
     return {
       name: "",
       comment: "",
-      token: "Token 1b04149e54bf6003dfe75d96fcd3be385cbae135"
+      token: "Token 1b04149e54bf6003dfe75d96fcd3be385cbae135",
+      posts: []
     }
   },
   created() {
-    axios.get(
-      "http://127.0.0.1:8000/api/register/",
+    axios.get("/register/",
       {
         headers: {"Authorization": this.token}
       }
     )
     .then(response => {
-      console.log(response);
+      this.posts = response.data.results;
+      console.log(response.data.results);
     })
     .catch(error => {
       console.log(error);
@@ -58,7 +63,7 @@ export default {
     },
     createComment() {
       axios.post(
-        "http://127.0.0.1:8000/api/register/",
+        "/register/",
         {
           "status": "public",
           "title": this.name,
