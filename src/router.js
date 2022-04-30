@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-const Home = () => import(/* webpackChunkName: "Home" */'./views/Home.vue');
-const Users = () => import(/* webpackChunkName: "Users" */'./views/Users.vue');
-const UsersPosts = () => import(/* webpackChunkName: "UsersPosts" */'./views/UsersPosts.vue');
-const UsersProfile = () => import(/* webpackChunkName: "UsersProfile" */'./views/UsersProfile.vue');
-const HeaderHome = () => import(/* webpackChunkName: "HeaderHome" */'./views/HeaderHome.vue');
-const HeaderUsers = () => import(/* webpackChunkName: "HomeUsers" */'./views/HeaderUsers.vue');
+const Home = () => import('./views/Home.vue');
+const Users = () => import('./views/Users.vue');
+const UsersPosts = () => import('./views/UsersPosts.vue');
+const UsersProfile = () => import('./views/UsersProfile.vue');
+const Entry = () => import('./views/Entry.vue');
+const Pokemon = () => import('./views/Pokemon.vue');
 
 Vue.use(Router)
 
@@ -17,7 +17,6 @@ export default new Router({
       path: '/',
       components: {
         default: Home,
-        header: HeaderHome
       },
       beforeEnter(to, from, next) {
         next();
@@ -27,7 +26,6 @@ export default new Router({
       path: '/users/:id',
       components: {
         default: Users,
-        header: HeaderUsers
       },
       props: {
         default: true,
@@ -37,6 +35,18 @@ export default new Router({
         {path: 'posts', component: UsersPosts},
         {path: 'profile', component: UsersProfile, name: 'users-id-profile'},
       ]
+    },
+    {
+      path: "/entry",
+      components: {
+        default: Entry,
+      },
+    },
+    {
+      path: "/pokemon",
+      components: {
+        default: Pokemon,
+      },
     },
     {
       path: '*',
