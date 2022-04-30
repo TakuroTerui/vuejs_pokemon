@@ -1,13 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-// import Home from './views/Home.vue';
-// import Users from './views/Users.vue';
-// import UsersPosts from './views/UsersPosts.vue';
-// import UsersProfile from './views/UsersProfile.vue';
-// import HeaderHome from './views/HeaderHome.vue';
-// import HeaderUsers from './views/HeaderUsers.vue';
-
 const Home = () => import(/* webpackChunkName: "Home" */'./views/Home.vue');
 const Users = () => import(/* webpackChunkName: "Users" */'./views/Users.vue');
 const UsersPosts = () => import(/* webpackChunkName: "UsersPosts" */'./views/UsersPosts.vue');
@@ -66,25 +59,5 @@ export default new Router({
         resolve(position);
       })
     })
-    // 1.前の位置
-    // if (savedPosition) {
-    //   return savedPosition;
-    // }
-
-    // 2
-    // if (to.hash) {
-    //   return {
-    //     selector: to.hash,
-    //   };
-    // }
-
-    // 3
-    // return {
-    //   selector: '#next-user',
-    //   offset: {x: 0, y: 100}
-    // };
-
-    // 4
-    // return {x: 0, y: 0};
   }
 })
