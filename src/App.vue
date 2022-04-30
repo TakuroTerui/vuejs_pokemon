@@ -1,6 +1,5 @@
 <template>
-  <div style="width: 700px; margin: auto; padding-top: 50px;">
-    <!-- <router-view name="header"></router-view> -->
+  <div style="width: 1000px; margin: auto; padding-top: 50px;">
     <transition
       name="fade"
       mode="out-in"
