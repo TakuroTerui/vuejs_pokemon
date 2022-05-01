@@ -1,9 +1,9 @@
 <template>
   <div>
     <h1>ポケモン図鑑</h1>
-    <ul>
-      <li v-for="post in posts" :key="post.name">
-        <img v-bind:src="post.image" width="150" height="150">
+    <ul class="scroll_area">
+      <li v-for="(post, index) in posts" :key="post.name">
+        <img v-bind:src="image[index]" width="150" height="150">
         <div class="name">{{ post.name }}</div>
       </li>
     </ul>
@@ -15,35 +15,68 @@ import axios from "axios";
 import pokeAxios from "../pokemon-api";
 
 export default {
-    data() {
+  data() {
     return {
       token: "Token 1b04149e54bf6003dfe75d96fcd3be385cbae135",
       posts: [],
-      next: null,
-      previous: null
+      addPosts: [],
+      image: [],
+      page: 2
     }
   },
-  created() {
+  destroyed () {
+    window.removeEventListener('scroll', this.checkScrollArea, {
+      capture: true
+    });
+  },
+  mounted() {
+    window.addEventListener('scroll', this.checkScrollArea, {
+      capture: true
+    });
     axios.get("/pokemon/",
       {
         headers: {"Authorization": this.token}
       }
     )
     .then(response => {
-      this.next = response.data.next;
-      this.previous = response.data.previous;
       this.posts = response.data.results;
       this.posts.forEach((post, index) => {
         pokeAxios.get(String(post.id))
         .then(response => {
           this.posts[index]['image'] = response.data.sprites.front_default;
+          this.image.push(response.data.sprites.front_default);
         });
       });
-    })
-    .catch(error => {
-      console.log(error);
     });
   },
+  methods: {
+    checkScrollArea () {
+      let bodyHeight = document.body.clientHeight // bodyの高さを取得
+      let windowHeight = window.innerHeight // windowの高さを取得
+      let bottomPoint = bodyHeight - windowHeight // ページ最下部までスクロールしたかを判定するための位置を計算
+      let currentPos = window.pageYOffset // スクロール量を取得
+      if (bottomPoint <= currentPos && this.page < 7) {
+        axios.get("/pokemon/" + "?page=" + this.page,
+          {
+            headers: {"Authorization": this.token}
+          }
+        )
+        .then(response => {
+          this.addPosts = response.data.results;
+          this.posts = this.posts.concat(this.addPosts);
+          this.addPosts.forEach((post, index) => {
+            index = index + (this.page - 1) * 30
+            pokeAxios.get(String(post.id))
+            .then(response => {
+              this.posts[index]['image'] = response.data.sprites.front_default;
+              this.image.push(response.data.sprites.front_default);
+            });
+          });
+          this.page++;
+        });
+      }
+    },
+  }
 }
 </script>
 
@@ -63,5 +96,8 @@ li:hover {
 .name, img {
   margin: auto;
   text-align: center;
+}
+.scroll_area {
+  overflow-y: scroll;
 }
 </style>

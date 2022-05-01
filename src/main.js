@@ -28,6 +28,7 @@ axios.interceptors.response.use(
   },
   error => {
     // App.vueのcatchの前の共通処理
+    console.log(error);
     return Promise.reject(error);
   },
 );
