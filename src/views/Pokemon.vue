@@ -2,7 +2,7 @@
   <div>
     <h1>ポケモン図鑑</h1>
     <ul class="scroll_area">
-      <li v-for="post in posts" :key="post.name">
+      <li v-for="post in posts" :key="post.uuid">
         <img v-bind:src="post.image" width="150" height="150">
         <div class="name">{{ post.name }}</div>
       </li>
@@ -43,11 +43,10 @@ export default {
         pokeAxios.get(String(post.id))
         .then(response => {
           this.$set(this.posts[index], 'image', response.data.sprites.front_default);
+          let uuid = new Date().getTime().toString();
+          this.$set(this.posts[index], 'uuid', uuid);
         });
       });
-      console.log('mounted str');
-      console.log(this.posts);
-      console.log('mounted fin');
     });
   },
   methods: {
@@ -56,7 +55,7 @@ export default {
       let windowHeight = window.innerHeight // windowの高さを取得
       let bottomPoint = bodyHeight - windowHeight // ページ最下部までスクロールしたかを判定するための位置を計算
       let currentPos = window.pageYOffset // スクロール量を取得
-      if (bottomPoint <= currentPos && this.page < 7) {
+      if (bottomPoint <= currentPos && this.page <= 6) {
         setTimeout(this.addPost, 2000);
       }
     },
@@ -74,12 +73,11 @@ export default {
           pokeAxios.get(String(post.id))
           .then(response => {
             this.$set(this.posts[index], 'image', response.data.sprites.front_default);
+            let uuid = new Date().getTime().toString();
+            this.$set(this.posts[index], 'uuid', uuid);
           });
         });
         this.page++;
-        console.log('methods str');
-        console.log(this.posts);
-        console.log('methods fin');
       });
     }
   }
