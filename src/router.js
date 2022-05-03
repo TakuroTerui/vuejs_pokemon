@@ -7,6 +7,7 @@ const UsersPosts = () => import('./views/UsersPosts.vue');
 const UsersProfile = () => import('./views/UsersProfile.vue');
 const Entry = () => import('./views/Entry.vue');
 const Pokemon = () => import('./views/Pokemon.vue');
+const PokemonDetail = () => import('./views/PokemonDetail.vue');
 
 Vue.use(Router)
 
@@ -46,6 +47,13 @@ export default new Router({
       path: "/pokemon",
       components: {
         default: Pokemon,
+      },
+    },
+    {
+      path: "/pokemon/:id",
+      name: "pokemonDetail",
+      components: {
+        default: PokemonDetail,
       },
     },
     {
