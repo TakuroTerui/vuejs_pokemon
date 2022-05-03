@@ -3,8 +3,10 @@
     <h1>ポケモン図鑑</h1>
     <ul class="scroll_area">
       <li v-for="post in posts" :key="post.uuid">
-        <img v-bind:src="post.image" width="150" height="150">
-        <div class="name">{{ post.name }}</div>
+        <router-link :to="{name: 'pokemonDetail', params: {id: post.id}}" tag="div">
+          <img v-bind:src="post.image" width="150" height="150">
+          <div class="name">{{ post.name }}</div>
+        </router-link>
       </li>
       <div v-show="posts.length !== pokeCount" class="loader">Loading...</div>
     </ul>
