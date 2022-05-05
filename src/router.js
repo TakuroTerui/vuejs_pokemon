@@ -8,6 +8,7 @@ const UsersProfile = () => import('./views/UsersProfile.vue');
 const Entry = () => import('./views/Entry.vue');
 const Pokemon = () => import('./views/Pokemon.vue');
 const PokemonDetail = () => import('./views/PokemonDetail.vue');
+const Predict = () => import('./views/Predict.vue');
 
 Vue.use(Router)
 
@@ -54,6 +55,12 @@ export default new Router({
       name: "pokemonDetail",
       components: {
         default: PokemonDetail,
+      },
+    },
+    {
+      path: "/predict",
+      components: {
+        default: Predict,
       },
     },
     {
