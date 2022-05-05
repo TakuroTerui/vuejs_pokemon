@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>ポケモン図鑑</h1>
     <ul class="scroll_area">
       <li v-for="post in posts" :key="post.uuid">
         <router-link :to="{name: 'pokemonDetail', params: {id: post.id}}" tag="div">
