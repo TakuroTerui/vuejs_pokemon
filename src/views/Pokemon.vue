@@ -98,7 +98,7 @@ li {
   margin: 10px;
 }
 li:hover {
-  background-color: #F2F2F2;
+  background-color: #DDDDDD;
 }
 .name, img {
   margin: auto;
@@ -118,8 +118,8 @@ li:hover {
   font-size: 10px;
   position: relative;
   text-indent: -9999em;
-  border-top: 1.1em solid #F2F2F2;
-  border-right: 1.1em solid #F2F2F2;
+  border-top: 1.1em solid #fff;
+  border-right: 1.1em solid #fff;
   border-bottom: 1.1em solid red;
   border-left: 1.1em solid red;
   -webkit-transform: translateZ(0);
