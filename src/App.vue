@@ -8,9 +8,13 @@
       >
         ポケモンずかん
       </router-link>
+      <span class="ball">
+        <img :src="require('@/assets/img/icons8.png')" height="35">
+      </span>
       <span class="logout">
+        <router-link to="/predict" class="predict">画像検索</router-link>
         <a class="logout_a" href="">
-          Logout
+          ログアウト
         </a>
       </span>
     </nav>
@@ -56,22 +60,27 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: 1rem 1rem;
   border-bottom: 1px solid;
-  background: radial-gradient(#5577AA, #1E90FF);
+  background-color: #fff;
 }
 .logout {
   font-size: 15px;
   text-align: right;
+  margin: 0 0 0 auto;
 }
 .logout_a {
-  color: #fff;
   text-decoration: underline;
 }
 .navbar-brand {
   font-size: 28px;
   cursor: pointer;
-  color:#fff;
+}
+.ball {
+  text-align: left;
+}
+.predict {
+  margin-right: 10px;
 }
 </style>
