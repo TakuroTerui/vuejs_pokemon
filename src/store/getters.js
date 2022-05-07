@@ -1,3 +1,4 @@
 export default {
-  message: state => state.message
+  message: state => state.message,
+  token: state => state.token,
 }
