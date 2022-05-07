@@ -4,16 +4,44 @@
     <div v-show="errorMessage">{{ errorMessage }}</div>
     <form>
       <div>
-        <input type="text" name="username" placeholder="ユーザー名" v-model="userName" autocomplete="username">
+        <input
+          type="text"
+          name="username"
+          placeholder="ユーザー名"
+          v-model="userName"
+          autocomplete="username"
+          v-on:keydown.enter="submit"
+        >
       </div>
       <div>
-        <input type="email" name="email" placeholder="xxxxxx@example.com" v-model="email" autocomplete="email">
+        <input
+          type="email"
+          name="email"
+          placeholder="xxxxxx@example.com"
+          v-model="email"
+          autocomplete="email"
+          v-on:keydown.enter="submit"
+        >
       </div>
       <div>
-        <input type="password" name="password" placeholder="パスワード" v-model="password" autocomplete="new-password">
+        <input
+          type="password"
+          name="password"
+          placeholder="パスワード"
+          v-model="password"
+          autocomplete="new-password"
+          v-on:keydown.enter="submit"
+        >
       </div>
       <div>
-        <input type="password" name="confirm" placeholder="パスワード（確認用）" v-model="confirm" autocomplete="new-password">
+        <input
+          type="password"
+          name="confirm"
+          placeholder="パスワード（確認用）"
+          v-model="confirm"
+          autocomplete="new-password"
+          v-on:keydown.enter="submit"
+        >
       </div>
       <button @click="submit" type="button" class="button">登録する</button>
     </form>
@@ -61,6 +89,9 @@ export default {
         }
         this.$store.dispatch("updateToken", response.data.token);
         this.$router.push('pokemon')
+      })
+      .catch(response => {
+        this.errorMessage = response.data
       });
     },
     setMessage (data) {

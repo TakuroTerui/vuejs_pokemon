@@ -12,10 +12,12 @@
         <img :src="require('@/assets/img/icons8.png')" height="35">
       </span>
       <span class="logout">
-        <router-link to="/predict" class="predict">画像検索</router-link>
-        <a class="logout_a" href="">
+        <router-link to="/predict" v-show="token" class="predict">画像検索</router-link>
+        <a class="logout_a" href="" v-show="token" @click="logout">
           ログアウト
         </a>
+        <router-link to="/login" v-show="!token" class="login">ログイン</router-link>
+        <router-link to="/register" v-show="!token">新規登録</router-link>
       </span>
     </nav>
     <div style="width: 1000px; margin: auto; padding-top: 100px;">
@@ -32,10 +34,19 @@
 
 <script>
 export default {
+  computed: {
+    token() {
+      return this.$store.getters.token;
+    }
+  },
   methods: {
     beforeEnter() {
       this.$root.$emit('triggerScroll');
     },
+    logout() {
+      this.$store.dispatch("updateToken", '');
+      this.$router.push('login')
+    }
   }
 }
 </script>
@@ -60,7 +71,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  /* justify-content: space-between; */
   padding: 1rem 1rem;
   border-bottom: 1px solid;
   background-color: #fff;
@@ -80,7 +90,7 @@ export default {
 .ball {
   text-align: left;
 }
-.predict {
+.predict, .login {
   margin-right: 10px;
 }
 </style>
