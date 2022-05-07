@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from '@/store/index.js'
 
 const Home = () => import('./views/Home.vue');
 const Users = () => import('./views/Users.vue');
@@ -51,6 +52,15 @@ export default new Router({
       components: {
         default: Pokemon,
       },
+      beforeEnter: (to, from, next) => {
+        let token = store.getters.token
+        console.log(to, from)
+        if (token == '') {
+          next({path: '/login'})
+          return false
+        }
+        next()
+      },
     },
     {
       path: "/pokemon/:id",
@@ -58,11 +68,29 @@ export default new Router({
       components: {
         default: PokemonDetail,
       },
+      beforeEnter: (to, from, next) => {
+        let token = store.getters.token
+        console.log(to, from)
+        if (token == '') {
+          next({path: '/login'})
+          return false
+        }
+        next()
+      },
     },
     {
       path: "/predict",
       components: {
         default: Predict,
+      },
+      beforeEnter: (to, from, next) => {
+        let token = store.getters.token
+        console.log(to, from)
+        if (token == '') {
+          next({path: '/login'})
+          return false
+        }
+        next()
       },
     },
     {
@@ -70,11 +98,29 @@ export default new Router({
       components: {
         default: Login,
       },
+      beforeEnter: (to, from, next) => {
+        let token = store.getters.token
+        console.log(to, from)
+        if (token != '') {
+          next({path: '/pokemon'})
+          return false
+        }
+        next()
+      },
     },
     {
       path: "/register",
       components: {
         default: Register,
+      },
+      beforeEnter: (to, from, next) => {
+        let token = store.getters.token
+        console.log(to, from)
+        if (token != '') {
+          next({path: '/pokemon'})
+          return false
+        }
+        next()
       },
     },
     {
@@ -83,7 +129,6 @@ export default new Router({
     }
   ],
   scrollBehavior(to, from, savedPosition) {
-    console.log(to, from, savedPosition);
     return new Promise(resolve => {
       this.app.$root.$once('triggerScroll', () => {
         let position = {x: 0, y: 0}
