@@ -19,7 +19,7 @@ import pokeAxios from "../pokemon-api";
 export default {
   data() {
     return {
-      token: "Token 1b04149e54bf6003dfe75d96fcd3be385cbae135",
+      token: 'Token ' + this.$store.getters.token,
       posts: [],
       addPosts: [],
       page: 2,
