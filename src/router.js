@@ -1,19 +1,16 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-// import Home from './views/Home.vue';
-// import Users from './views/Users.vue';
-// import UsersPosts from './views/UsersPosts.vue';
-// import UsersProfile from './views/UsersProfile.vue';
-// import HeaderHome from './views/HeaderHome.vue';
-// import HeaderUsers from './views/HeaderUsers.vue';
-
-const Home = () => import(/* webpackChunkName: "Home" */'./views/Home.vue');
-const Users = () => import(/* webpackChunkName: "Users" */'./views/Users.vue');
-const UsersPosts = () => import(/* webpackChunkName: "UsersPosts" */'./views/UsersPosts.vue');
-const UsersProfile = () => import(/* webpackChunkName: "UsersProfile" */'./views/UsersProfile.vue');
-const HeaderHome = () => import(/* webpackChunkName: "HeaderHome" */'./views/HeaderHome.vue');
-const HeaderUsers = () => import(/* webpackChunkName: "HomeUsers" */'./views/HeaderUsers.vue');
+const Home = () => import('./views/Home.vue');
+const Users = () => import('./views/Users.vue');
+const UsersPosts = () => import('./views/UsersPosts.vue');
+const UsersProfile = () => import('./views/UsersProfile.vue');
+const Entry = () => import('./views/Entry.vue');
+const Pokemon = () => import('./views/Pokemon.vue');
+const PokemonDetail = () => import('./views/PokemonDetail.vue');
+const Predict = () => import('./views/Predict.vue');
+const Login = () => import('./views/Login.vue');
+const Register = () => import('./views/Register.vue');
 
 Vue.use(Router)
 
@@ -24,7 +21,6 @@ export default new Router({
       path: '/',
       components: {
         default: Home,
-        header: HeaderHome
       },
       beforeEnter(to, from, next) {
         next();
@@ -34,7 +30,6 @@ export default new Router({
       path: '/users/:id',
       components: {
         default: Users,
-        header: HeaderUsers
       },
       props: {
         default: true,
@@ -44,6 +39,43 @@ export default new Router({
         {path: 'posts', component: UsersPosts},
         {path: 'profile', component: UsersProfile, name: 'users-id-profile'},
       ]
+    },
+    {
+      path: "/entry",
+      components: {
+        default: Entry,
+      },
+    },
+    {
+      path: "/pokemon",
+      components: {
+        default: Pokemon,
+      },
+    },
+    {
+      path: "/pokemon/:id",
+      name: "pokemonDetail",
+      components: {
+        default: PokemonDetail,
+      },
+    },
+    {
+      path: "/predict",
+      components: {
+        default: Predict,
+      },
+    },
+    {
+      path: "/login",
+      components: {
+        default: Login,
+      },
+    },
+    {
+      path: "/register",
+      components: {
+        default: Register,
+      },
     },
     {
       path: '*',
@@ -66,25 +98,5 @@ export default new Router({
         resolve(position);
       })
     })
-    // 1.前の位置
-    // if (savedPosition) {
-    //   return savedPosition;
-    // }
-
-    // 2
-    // if (to.hash) {
-    //   return {
-    //     selector: to.hash,
-    //   };
-    // }
-
-    // 3
-    // return {
-    //   selector: '#next-user',
-    //   offset: {x: 0, y: 100}
-    // };
-
-    // 4
-    // return {x: 0, y: 0};
   }
 })
