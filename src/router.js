@@ -12,6 +12,7 @@ const PokemonDetail = () => import('./views/PokemonDetail.vue');
 const Predict = () => import('./views/Predict.vue');
 const Login = () => import('./views/Login.vue');
 const Register = () => import('./views/Register.vue');
+const Party = () => import('./views/Party.vue');
 
 Vue.use(Router)
 
@@ -117,6 +118,21 @@ export default new Router({
         let token = store.getters.token
         console.log(to, from)
         if (token != '') {
+          next({path: '/pokemon'})
+          return false
+        }
+        next()
+      },
+    },
+    {
+      path: "/party",
+      components: {
+        default: Party,
+      },
+      beforeEnter: (to, from, next) => {
+        let token = store.getters.token
+        console.log(to, from)
+        if (token == '') {
           next({path: '/pokemon'})
           return false
         }
