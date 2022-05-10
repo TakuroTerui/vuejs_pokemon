@@ -23,7 +23,7 @@
         <td>{{ post.speed }}</td>
       </router-link>
     </table>
-    <div v-show="pokemons.length > 5" @click="showModal" class="btn_wrapper">
+    <div v-show="posts.length < 6" @click="showModal" class="btn_wrapper">
       <div class="icon icon--plus" style="float: left;">
         <span class="icon__mark"></span>
       </div>
