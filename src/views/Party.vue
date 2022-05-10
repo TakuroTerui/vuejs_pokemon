@@ -11,9 +11,12 @@
         <td>とくこう</td>
         <td>とくぼう</td>
         <td>すばやさ</td>
+        <td class="delete_td"></td>
       </tr>
-      <router-link v-for="post in posts" :key="post.uuid" :to="{name: 'pokemonDetail', params: {id: post.id}}" tag="tr">
-        <th><img :src="post.image"></th>
+      <tr v-for="post in posts" :key="post.uuid">
+        <th>
+          <router-link :to="{name: 'pokemonDetail', params: {id: post.id}}" tag="img" :src="post.image" class="list_img"></router-link>
+        </th>
         <td>{{ post.name }}</td>
         <td>{{ post.hit_points }}</td>
         <td>{{ post.attack }}</td>
@@ -21,7 +24,8 @@
         <td>{{ post.special_attack }}</td>
         <td>{{ post.special_defense }}</td>
         <td>{{ post.speed }}</td>
-      </router-link>
+        <td class="delete_td"><div @click="deletePokemon(post.party_id)" class="delete">×</div></td>
+      </tr>
     </table>
     <div v-show="posts.length < 6" @click="showModal" class="btn_wrapper">
       <div class="icon icon--plus" style="float: left;">
@@ -110,6 +114,18 @@ export default {
         this.$router.go({path: '/party', force: true})
       });
     },
+    deletePokemon (id) {
+      let partyId = String(id)
+      axios.delete("/party/" + partyId + '/',
+        {
+          headers: {"Authorization": this.token}
+        }
+      )
+    .then(response => {
+      console.log(response)
+      this.$router.go({path: '/party', force: true})
+    });
+    }
   }
 };
 </script>
@@ -119,24 +135,21 @@ table {
   border: 1px solid;
   background-color: #FAFAFA;
   border-collapse: collapse;
+  margin-bottom: 20px;
 }
 tr {
   height: 40px;
   border: none;
-  cursor: pointer;
-}
-tr:hover {
-  background-color: #DDDDDD;
-}
-tr:first-child {
-  cursor: default;
-}
-tr:first-child:hover {
-  background-color: #FAFAFA;
 }
 td {
   width: 100px;
   text-align: center;
+}
+.list_img {
+  cursor: pointer;
+}
+.delete_td {
+  width: 40px;
 }
 .list_body:hover {
   background-color: #DDDDDD;
@@ -239,5 +252,24 @@ p:hover {
 }
 .batsu::after {
   transform: translate(-50%,-50%) rotate(-45deg);
+}
+.delete{
+  font-size: 100%;
+  font-weight: bold;
+  border: 1px solid #999;
+  color: #999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  width: 1.8em;
+  line-height: 1.8em;
+  cursor: pointer;
+  transition: .2s;
+}
+.delete:hover{
+  background: red;
+  border-color: red;
+  color: #FFF;
 }
 </style>
