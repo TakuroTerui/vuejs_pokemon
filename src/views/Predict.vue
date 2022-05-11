@@ -37,6 +37,7 @@
         class="predict_image"
       >
       </router-link>
+      <button>もう一度検索する</button>
     </div>
   </div>
 </template>
