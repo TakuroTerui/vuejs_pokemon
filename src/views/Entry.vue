@@ -1,7 +1,7 @@
 <template>
   <div>
+    <h2>掲示板</h2>
     <div>
-      <h3>掲示板に投稿する</h3>
       <div>＜タイトル＞</div>
       <input
         id="title"
@@ -11,15 +11,13 @@
       <div>＜本文＞</div>
       <textarea id="body" v-model="body"></textarea>
       <br>
-      <button @click="createBody">投稿する</button>
+      <button @click="createBody" class="button">投稿する</button>
     </div>
-    <h2>掲示板</h2>
     <div class="entry_body">
-      <div v-for="post in posts" :key="post.id">
-        <div>名前:{{ post.author.username }}</div>
-        <div>タイトル:{{ post.title }}</div>
+      <div v-for="post in posts" :key="post.id" class="body">
+        <div class="author">投稿者:{{ post.author.username }}</div>
+        <div class="title">タイトル:{{ post.title }}</div>
         <div>本文:{{ post.body }}</div>
-        <br>
       </div>
     </div>
   </div>
@@ -75,6 +73,10 @@ export default {
 </script>
 
 <style scope>
+h2 {
+  color: #990000;
+  font-weight: bold;
+}
 input {
   width: 300px;
 }
@@ -84,8 +86,42 @@ textarea {
 }
 .entry_body {
   width: 100%;
-  background-color: #fff;
+  background-color: #990000;
   margin-bottom: 20px;
   border: 1px solid;
+  padding: 2px;
+}
+.body {
+  border: 1px solid;
+  background-color: #fff;
+  margin-bottom: 2px;
+  padding: 2px;
+}
+.author, .title {
+  margin-bottom: 5px;
+}
+button {
+  display: flex;
+}
+.button {
+  margin-bottom: 20px;
+  margin-top: 0;
+  display       : inline-block;
+  border-radius : 5%;
+  font-size     : 12pt;
+  text-align    : center;
+  cursor        : pointer;
+  padding       : 10px 22px;
+  background    : #990000;
+  color         : #ffffff;
+  line-height   : 1em;
+  transition    : .3s;
+  box-shadow    : 2px 2px 3px #666666;
+  border        : 2px solid #990000;
+}
+.button:hover {
+  box-shadow    : none;
+  color         : #990000;
+  background    : #ffffff;
 }
 </style>
