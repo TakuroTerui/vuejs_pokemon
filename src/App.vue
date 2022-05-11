@@ -12,6 +12,7 @@
         <img :src="require('@/assets/img/icons8.png')" height="35">
       </span>
       <span class="logout">
+        <router-link to="/entry" v-show="token" class="predict">掲示板</router-link>
         <router-link to="/party" v-show="token" class="predict">パーティー</router-link>
         <router-link to="/predict" v-show="token" class="predict">画像検索</router-link>
         <a class="logout_a" href="" v-show="token" @click="logout">
