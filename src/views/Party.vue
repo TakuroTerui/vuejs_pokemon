@@ -147,6 +147,7 @@ td {
 }
 .list_img {
   cursor: pointer;
+  height: 80px;
 }
 .delete_td {
   width: 40px;
