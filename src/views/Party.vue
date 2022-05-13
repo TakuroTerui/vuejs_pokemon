@@ -6,6 +6,7 @@
         <th></th>
         <td>なまえ</td>
         <td>HP</td>
+        <td>タイプ</td>
         <td>こうげき</td>
         <td>ぼうぎょ</td>
         <td>とくこう</td>
@@ -19,6 +20,14 @@
         </th>
         <td>{{ post.name }}</td>
         <td>{{ post.hit_points }}</td>
+        <td>
+          <img
+            v-for="type in post.type"
+            :key="type.id"
+            :src="require(`@/assets/img/${type}.jpeg`)"
+            width="50"
+          >
+        </td>
         <td>{{ post.attack }}</td>
         <td>{{ post.defense }}</td>
         <td>{{ post.special_attack }}</td>
@@ -39,7 +48,7 @@
         <tr class="header">
           <th>No</th>
           <th>なまえ</th>
-          <th>HP</th>
+          <th>タイプ</th>
           <th>こうげき</th>
           <th>ぼうぎょ</th>
           <th>とくこう</th>
