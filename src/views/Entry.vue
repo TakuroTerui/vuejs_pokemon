@@ -20,6 +20,12 @@
         <div>本文:{{ post.body }}</div>
       </div>
     </div>
+    <div class="pager">
+      <ul class="pagination">
+        <li v-show="previous"><a @click="changePage('previous')"><span>«</span></a></li>
+        <li v-show="next"><a @click="changePage('next')"><span>»</span></a></li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -32,21 +38,22 @@ export default {
       title: "",
       body: "",
       token: 'Token ' + this.$store.getters.token,
-      posts: []
+      posts: [],
+      next: '',
+      previous: '',
+      page: 1
     }
   },
   created() {
-    axios.get("/register/",
+    axios.get("/register/?page=" + this.page,
       {
         headers: {"Authorization": this.token}
       }
     )
     .then(response => {
       this.posts = response.data.results;
-      console.log(response.data.results);
-    })
-    .catch(error => {
-      console.log(error);
+      this.next = response.data.next
+      this.previous = response.data.previous
     });
   },
   methods: {
@@ -67,6 +74,24 @@ export default {
       });
       this.title = "";
       this.body = "";
+    },
+    changePage(type) {
+      if (type == 'next') {
+        this.page++;
+      }
+      if (type == 'previous') {
+        this.page--;
+      }
+      axios.get("/register/?page=" + this.page,
+        {
+          headers: {"Authorization": this.token}
+        }
+      )
+      .then(response => {
+        this.posts = response.data.results;
+        this.next = response.data.next
+        this.previous = response.data.previous
+      });
     }
   }
 }
@@ -123,5 +148,45 @@ button {
   box-shadow    : none;
   color         : #990000;
   background    : #ffffff;
+}
+.pager ul.pagination {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+.pager .pagination li {
+  display: inline;
+  margin: 0 2px;
+  padding: 0;
+  display: inline-block;
+  background:#990000;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  position: relative;
+}
+.pager .pagination li a{
+  vertical-align: middle;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display:table;
+  color: #fff;
+  text-decoration: none;
+}
+.pager .pagination li a span{
+  display:table-cell;
+  vertical-align:middle;
+}
+.pager .pagination li a:hover,
+.pager .pagination li a.active{
+  color: #000;
+  background: #ffffff;
+}
+.not_active {
+  background: #ffffff;
 }
 </style>
