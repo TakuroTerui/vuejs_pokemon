@@ -112,7 +112,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 input {
   width: 600px;
   margin-bottom: 5px;
