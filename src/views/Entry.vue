@@ -14,11 +14,11 @@
       <button @click="createBody" class="button">投稿する</button>
     </div>
     <div class="entry_body">
-      <div v-for="post in posts" :key="post.id" class="body">
+      <router-link v-for="post in posts" :key="post.id" class="body" tag="div" :to="{name: 'entryDetail', params: {id: post.id}}">
         <div class="author">投稿者:{{ post.author.username }}</div>
         <div class="title">タイトル:{{ post.title }}</div>
         <div>本文:{{ post.body }}</div>
-      </div>
+      </router-link>
     </div>
     <div class="pager">
       <ul class="pagination">
@@ -97,7 +97,7 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
 h2 {
   color: #990000;
   font-weight: bold;
@@ -121,6 +121,7 @@ textarea {
   background-color: #fff;
   margin-bottom: 2px;
   padding: 2px;
+  cursor: pointer;
 }
 .author, .title {
   margin-bottom: 5px;
