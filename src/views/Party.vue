@@ -139,7 +139,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 table {
   border: 1px solid;
   background-color: #FAFAFA;

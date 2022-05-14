@@ -97,7 +97,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 .preview-item {
   padding-bottom: 20px;
 }
