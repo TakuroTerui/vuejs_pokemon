@@ -42,7 +42,7 @@
       </div>
       <div class="btn_label">追加する</div>
     </div>
-    <div v-show="modal" id="overlay">
+    <div v-show="modal" id="overlay" @click.self="hideModal">
       <div id="content">
         <span @click="hideModal" class="batsu"></span>
         <tr class="header">
