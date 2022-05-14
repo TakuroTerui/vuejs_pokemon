@@ -13,6 +13,7 @@ const Predict = () => import('./views/Predict.vue');
 const Login = () => import('./views/Login.vue');
 const Register = () => import('./views/Register.vue');
 const Party = () => import('./views/Party.vue');
+const EntryDetail = () => import('./views/EntryDetail.vue');
 
 Vue.use(Router)
 
@@ -119,6 +120,22 @@ export default new Router({
         console.log(to, from)
         if (token != '') {
           next({path: '/pokemon'})
+          return false
+        }
+        next()
+      },
+    },
+    {
+      path: "/entry/:id",
+      name: "entryDetail",
+      components: {
+        default: EntryDetail,
+      },
+      beforeEnter: (to, from, next) => {
+        let token = store.getters.token
+        console.log(to, from)
+        if (token == '') {
+          next({path: '/login'})
           return false
         }
         next()
