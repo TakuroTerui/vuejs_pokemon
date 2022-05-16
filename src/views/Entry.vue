@@ -18,6 +18,9 @@
         <div class="author">投稿者:{{ post.author.username }}</div>
         <div class="title">タイトル:{{ post.title }}</div>
         <div>本文:{{ post.body }}</div>
+        <div class="favorite">
+          <i class="far fa-heart"></i>
+        </div>
       </router-link>
     </div>
     <div class="pager">
@@ -189,5 +192,8 @@ button {
 }
 .not_active {
   background: #ffffff;
+}
+.favorite {
+  margin-left: 5px;
 }
 </style>
