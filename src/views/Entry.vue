@@ -14,14 +14,16 @@
       <button @click="createBody" class="button">投稿する</button>
     </div>
     <div class="entry_body">
-      <router-link v-for="post in posts" :key="post.id" class="body" tag="div" :to="{name: 'entryDetail', params: {id: post.id}}">
-        <div class="author">投稿者:{{ post.author.username }}</div>
-        <div class="title">タイトル:{{ post.title }}</div>
-        <div>本文:{{ post.body }}</div>
+      <div v-for="post in posts" :key="post.id" class="body">
+        <router-link tag="div" :to="{name: 'entryDetail', params: {id: post.id}}" class="body_link">
+          <div class="author">投稿者:{{ post.author.username }}</div>
+          <div class="title">タイトル:{{ post.title }}</div>
+          <div>本文:{{ post.body }}</div>
+        </router-link>
         <div class="favorite">
           <i class="far fa-heart"></i>
         </div>
-      </router-link>
+      </div>
     </div>
     <div class="pager">
       <ul class="pagination">
@@ -124,6 +126,8 @@ textarea {
   background-color: #fff;
   margin-bottom: 2px;
   padding: 2px;
+}
+.body_link {
   cursor: pointer;
 }
 .author, .title {
